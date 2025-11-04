@@ -1,0 +1,13 @@
+{
+	"autodeskProduct": "Fusion360",
+	"type": "addin",
+	"id": "e3a89e90-c651-4f1e-9273-exporterx",
+	"author": "OpenSource",
+	"description": {
+		"": "Batch Exporter for Fusion 360"
+	},
+	"version": "1.0.0",
+	"runOnStartup": false,
+	"supportedOS": "windows|mac",
+	"editEnabled": true
+}
