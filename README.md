@@ -1,186 +1,50 @@
-# Fusion 360 Batch Exporter
+# Exporter-X for Fusion 360
 
-A powerful Fusion 360 add-in for batch exporting designs and drawings from your Fusion 360 projects. Supports multiple export formats and automated file discovery.
+A powerful, streamlined Fusion 360 add-in designed for fast, reliable batch exporting of 3D designs and 2D drawings. 
 
 ## Features
 
-### 🚀 Batch Export Designs (3D Files)
-- Export multiple `.f3d` files from a CSV list
-- Supported formats: **STEP**, **STL**, **OBJ**
-- Smart file discovery using cache or live scan
-- Progress tracking in Text Commands window
-
-### 📐 Batch Export Drawings (2D Files)
-- Export multiple `.f2d` files from a CSV list
-- Supported formats: **PDF**, **DXF**, **DWG**
-- Automatic drawing product detection
-- Reliable batch processing
-
-### 📋 Additional Tools
-- **Build Cache**: Create a searchable cache of all your Fusion 360 files
-- **Export by File ID**: Export individual files by their Fusion 360 file ID
-- **Fetch File ID**: Get the file ID of your currently active document
+This add-in provides 4 core commands directly in your Fusion 360 Utilities toolbar:
+1. **3D Export (CSV)**: Export specific 3D designs by providing a CSV list of filenames.
+2. **2D Export (CSV)**: Export specific 2D drawings by providing a CSV list of filenames.
+3. **3D Export (Entire Folder)**: Instantly export every single 3D design located inside a specific folder. 
+4. **2D Export (Entire Folder)**: Instantly export every single 2D drawing located inside a specific folder.
 
 ## Installation
 
-1. **Download** this repository
-2. **Extract** to a folder on your computer
-3. **Open Fusion 360**
-4. Go to **UTILITIES** → **ADD-INS** → **Scripts and Add-Ins** (or press `Shift+S`)
-5. Click the **green "+"** button next to "My Add-Ins"
-6. Navigate to and select the `ExportWithRohan` folder
-7. The add-in should now appear in the list
-8. Click **Run** to start using it
+1. **Download** or clone this repository.
+2. **Open Fusion 360**.
+3. Go to **UTILITIES** → **ADD-INS** → **Scripts and Add-Ins** (or press `Shift+S`).
+4. Click the **green "+"** button next to "My Add-Ins".
+5. Navigate to and select the `Exporter-X` folder.
+6. The add-in will appear in your list. Click **Run** to start using it.
 
-## Usage
+## Detailed Step-by-Step Usage
 
-### Batch Export Designs
+1. **Turn on the Add-in**: Go to the Add-Ins menu (or press `Shift+S`), select `Exporter-X`, and ensure it is running. The buttons will appear in your toolbar.
+2. **Open a Context File (Required)**: You *must* open a CAD file in Fusion 360 before clicking an export button. The add-in uses your currently open file to trace the active project path and auto-select your folders!
+   * *Pro-Tip for Speed*: Open a file that is in the folder nearest to all your export targets. If you have nested folders, try to open a file in a folder that is farthest from the root but still contains all the files you need. Alternatively, put all your target files into a single folder. This makes scanning much faster!
+3. **Run the Command**: Click the export button you want to use from the toolbar.
+4. **Wait and Verify**: Wait a few seconds to a few minutes (depending on how deeply nested your files are and your internet connection speed). The tool will automatically select the folders based on your open file. You can easily click the dropdowns to change the target folders if you need to search somewhere else.
+5. **Choose Destination**: Proceed with the menu, and a prompt will ask you to select a destination folder on your local computer. The tool will then begin exporting all files there.
 
-1. **Prepare CSV File**
-   - Create a CSV file with one design number per line
-   - Example:
-     ```
-     4000009872
-     4000009871
-     4000009870
-     ```
+> **⚠️ Note on Drawing (2D) Exports**: When batch exporting 2D drawings, Fusion 360 will rapidly open and close files on your screen. It might look intense or dangerous, but do not worry—this is completely safe and normal behavior!
 
-2. **Run Command**
-   - In Fusion 360, go to **UTILITIES** → **ADD-INS** panel
-   - Find **Batch Export** command
-   - Click to run
+## CSV File Format (For CSV Exports)
 
-3. **Select Options**
-   - **CSV File**: Browse to your CSV file
-   - **Search Mode**: Choose "Use Cache" (faster) or "Live Scan"
-   - **Export Format**: Select STEP, STL, or OBJ
+When using the CSV export commands, provide a simple text file with one filename per line:
 
-4. **Choose Output**
-   - Select destination folder
-   - Confirm to start batch export
-
-### Batch Export Drawings
-
-1. **Prepare CSV File** (same as above)
-
-2. **Run Command**
-   - Find **Batch Export Drawings** command
-   - Click to run
-
-3. **Select Options**
-   - **CSV File**: Browse to your CSV file
-   - **Search Mode**: Choose "Use Cache" or "Live Scan"
-   - **Export Format**: Select PDF, DXF, or DWG
-
-4. **Export**
-   - Choose output folder
-   - Confirm to start
-
-### Build Cache (Recommended First Step)
-
-Building a cache speeds up file discovery dramatically.
-
-1. Run **Build Cache** command
-2. Select which projects to cache
-3. Wait for completion
-4. Cache is saved and reused for future exports
-
-### Export by File ID
-
-For exporting a single file:
-
-1. Run **Export Design** command
-2. Choose export format
-3. *Optional*: Enter a file ID, or leave blank to export active document
-4. Select output folder
-
-### Fetch File ID
-
-To get the Fusion 360 file ID of your current document:
-
-1. Open any design or drawing in Fusion 360
-2. Run **Fetch File ID** command
-3. File ID is copied to clipboard and shown in message
-
-## CSV File Format
-
-Simple text file with one file number per line:
-
+```csv
+Part_Number_001
+Part_Number_002
+Bracket_Assembly
 ```
-4000009872
-4000009871
-4000009870
-```
+- No headers are necessary (but if your first row says "Name" or "Part", it will be safely ignored).
+- Do not include the file extension (e.g. use `Bracket_Assembly`, not `Bracket_Assembly.f3d`).
 
-- No headers needed
-- One design/drawing number per line
-- Numbers only (the file ID from Fusion 360)
+## Disclaimer
 
-## How to Find File IDs
-
-**Method 1: Using "Fetch File ID" command**
-1. Open the file in Fusion 360
-2. Run "Fetch File ID" command
-3. ID is copied to clipboard
-
-**Method 2: From Fusion 360 URL**
-- When viewing a file in browser, the ID is in the URL:
-  `https://myhub.autodesk360.com/...file=urn:adsk.wipprod:fs.file:vf.XXXXXXXXX`
-  - The ID is the part after the last `:` 
-
-## Troubleshooting
-
-### "No files found"
-- Verify your CSV file has correct file IDs
-- Try "Live Scan" instead of "Use Cache"
-- Rebuild cache using "Build Cache" command
-
-### Drawing export fails
-- Ensure files are actually drawings (`.f2d`), not designs (`.f3d`)
-- Check that drawings are accessible in your Fusion 360 account
-- Try exporting one file at a time first
-
-### Slow performance
-- Use "Build Cache" first, then "Use Cache" mode
-- Close other applications to free up memory
-- Export in smaller batches
-
-## Technical Details
-
-### File Discovery Methods
-
-**Use Cache (Fast)**
-- Reads from pre-built cache file
-- Instant lookup
-- Recommended for large projects
-
-**Live Scan (Thorough)**
-- Scans your entire Fusion 360 data tree
-- Slower but always up-to-date
-- Use if cache is stale
-
-### Supported Formats
-
-**3D Designs (.f3d)**
-- STEP (.stp)
-- STL (.stl)
-- OBJ (.obj)
-
-**2D Drawings (.f2d)**
-- PDF (.pdf)
-- DXF (.dxf)
-- DWG (.dwg)
-
-## Credits
-
-Developed with insights from:
-- [aconz2/Fusion360Exporter](https://github.com/aconz2/Fusion360Exporter) - Drawing export pattern
-- Fusion 360 API Community
+This is a personal project. While it works great for bulk exports, please use it at your own risk when working with production-level models or critical company data.
 
 ## License
-
-MIT License - Feel free to use and modify.
-
-## Support
-
-For issues or questions, please open an issue on GitHub.
+Distributed under the MIT License. Feel free to use, modify, and distribute.

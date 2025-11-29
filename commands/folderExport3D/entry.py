@@ -208,7 +208,7 @@ def command_execute(args: adsk.core.CommandEventArgs):
     
     matched_documents = []
     for df in start_folder.dataFiles:
-        # Avoid drawings, just get designs (usually f3d, but checking extension is tricky, so we'll grab everything and filter by product type on open, or check extension)
+        # only grab 3D designs, ignore 2d drawings
         if df.fileExtension != 'f2d':
             matched_documents.append({'name': df.name, 'id': df.id})
             
